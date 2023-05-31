@@ -3,7 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfoManager", "InfoManager.csproj", "{58E0ED65-F050-4BED-84C4-80308FD87C4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoManager", "InfoManager.csproj", "{58E0ED65-F050-4BED-84C4-80308FD87C4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{B8831C84-B91D-4498-9F60-936B8CFE6DCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{755BD86A-68B3-4EE8-86D4-19F38F86D14E}"
+	ProjectSection(SolutionItems) = preProject
+		liara.yaml = liara.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +25,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{755BD86A-68B3-4EE8-86D4-19F38F86D14E} = {B8831C84-B91D-4498-9F60-936B8CFE6DCC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D8BF5171-7ADF-4A61-A359-115226EFF745}
