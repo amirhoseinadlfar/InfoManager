@@ -1,4 +1,4 @@
-﻿namespace InfoManager.Models
+﻿namespace InfoManager.Server.Models
 {
     public class TableRow
     {

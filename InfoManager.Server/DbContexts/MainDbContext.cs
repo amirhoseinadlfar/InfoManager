@@ -1,15 +1,16 @@
-﻿using InfoManager.Models;
+﻿using InfoManager.Server.Models;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage;
 
-namespace InfoManager.DbContexts
+namespace InfoManager.Server.DbContexts
 {
     public class MainDbContext : DbContext
     {
         public MainDbContext(DbContextOptions options) : base(options)
         {
-
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Session> Sessions { get; set; }
@@ -26,6 +27,7 @@ namespace InfoManager.DbContexts
             EntityTypeBuilder<User> userTypeBuilder = modelBuilder.Entity<User>().ToTable("info_users");
             EntityTypeBuilder<Session> sessionTypeBuilder = modelBuilder.Entity<Session>().ToTable("info_sessions");
             EntityTypeBuilder<Space> spaceTypeBuilder = modelBuilder.Entity<Space>().ToTable("info_spaces");
+            EntityTypeBuilder<SpaceMember> spaceMemberTypeBuilder = modelBuilder.Entity<SpaceMember>().ToTable("info_spaceMembers");
             EntityTypeBuilder<Table> tableTypeBuilder = modelBuilder.Entity<Table>().ToTable("info_tables");
             EntityTypeBuilder<TableRow> tableRowTypeBuilder = modelBuilder.Entity<TableRow>().ToTable("info_tableRows");
             EntityTypeBuilder<TableField> tableFieldTypeBuilder = modelBuilder.Entity<TableField>().ToTable("info_tableFields");
@@ -64,6 +66,11 @@ namespace InfoManager.DbContexts
             spaceTypeBuilder.Property(x=>x.Name)
                 .HasMaxLength(15)
                 .IsRequired();
+            #endregion
+            #region SpaceMember Configure
+            spaceMemberTypeBuilder.HasKey(x => x.Id);
+            spaceMemberTypeBuilder.Property(x => x.Id)
+                .ValueGeneratedOnAdd();
             #endregion
             #region Table Configure
             tableTypeBuilder.HasKey(x => x.Id);

@@ -1,10 +1,10 @@
-﻿using InfoManager.DbContexts;
-using InfoManager.Models;
-using InfoManager.Services.Repositorys.Interfaces;
+﻿using InfoManager.Server.DbContexts;
+using InfoManager.Server.Models;
+using InfoManager.Server.Services.Repositorys.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace InfoManager.Services.Repositorys
+namespace InfoManager.Server.Services.Repositorys
 {
     public class UserRepository : IUserRepository
     {
@@ -25,19 +25,14 @@ namespace InfoManager.Services.Repositorys
             return await dbContext.Users.AnyAsync(x => x.UserName == username);
         }
 
-        public async Task<User> FindAsync(int id)
+        public async Task<User?> FindAsync(int id)
         {
-            return await dbContext.Users.FirstAsync(x => x.Id == id);
+            return await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<User> FindAsync(string username, string password)
+        public async Task<User?> FindAsync(string username, string password)
         {
-            return await dbContext.Users.FirstAsync(x=>x.UserName == username && x.Password == password);
-        }
-
-        public async Task SaveAsync(User user)
-        {
-            await dbContext.SaveChangesAsync();
+            return await dbContext.Users.FirstOrDefaultAsync(x=>x.UserName == username && x.Password == password);
         }
     }
 }
