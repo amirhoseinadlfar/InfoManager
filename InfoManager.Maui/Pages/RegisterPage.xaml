@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfoManager.Maui.Pages.RegisterPage"
+             xmlns:pages="clr-namespace:InfoManager.Maui.Pages"
+             Title="ثبت نام"
+             x:DataType="pages:RegisterPageModel"
+             FlowDirection="RightToLeft">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+    <VerticalStackLayout WidthRequest="350" HorizontalOptions="Center" VerticalOptions="Center">
+        <Grid  ColumnSpacing="10" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0">نام</Label>
+            <Label Grid.Row="1" Grid.Column="0">نام کاربری</Label>
+            <Label Grid.Row="2" Grid.Column="0">رمز عبور</Label>
+            <Label Grid.Row="3" Grid.Column="0">تکرار رمز عبور</Label>
+            <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Name}"/>
+            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Username}"/>
+            <Entry Grid.Row="2" Grid.Column="1" IsPassword="True" Text="{Binding Password}"/>
+            <Entry Grid.Row="3" Grid.Column="1" IsPassword="True" Text="{Binding PasswordRepeat}"/>
+        </Grid>
+        <Button Margin="4" Command="{Binding RegisterCommand}" Text="ثبت نام"/>
+        <Button Margin="4" Command="{Binding GoToLoginPageCommand}" Text="ورود"/>
+    </VerticalStackLayout>
+</ContentPage>

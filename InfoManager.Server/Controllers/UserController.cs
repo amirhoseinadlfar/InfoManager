@@ -1,12 +1,14 @@
-﻿using InfoManager.Server.Controllers.Requests;
-using InfoManager.Server.Controllers.Respone;
-using InfoManager.Server.Models;
+﻿using InfoManager.Server.Models;
 using InfoManager.Server.Services;
 using InfoManager.Server.Services.Repositorys.Interfaces;
 using InfoManager.Server.Ulitis;
+using InfoManager.Shared;
+using InfoManager.Shared.Requests;
+using InfoManager.Shared.Respones;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +56,7 @@ public class UserController : ControllerBase
         {
             return Conflict();
         }
+
         User newUser = new User()
         {
             Name = request.Name,

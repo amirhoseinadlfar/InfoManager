@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:InfoManager.Maui.Pages"
+             x:Class="InfoManager.Maui.Pages.LoginPage"
+             x:DataType="pages:LoginPageModel"
+             FlowDirection="RightToLeft"
+             Title="ورود"
+             IsEnabled="{Binding IsNotBusy}">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+    <VerticalStackLayout MaximumWidthRequest="350" VerticalOptions="Center">
+    <Grid RowSpacing="5" ColumnSpacing="10" Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Grid.Row="0">نام کاربری</Label>
+        <Entry Grid.Column="1" Grid.Row="0" Text="{Binding Username}"/>
+        <Label Grid.Column="0" Grid.Row="1">رمز عبور</Label>
+        <Entry Grid.Column="1" Grid.Row="1" Text="{Binding Password}"/>
+
+    </Grid>
+        <Button HorizontalOptions="CenterAndExpand" MaximumWidthRequest="200" MinimumWidthRequest="100"   Command="{Binding LoginCommand}" Text="ورود"></Button>
+        <HorizontalStackLayout>
+
+            <Label>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToRegisterCommand}"/>
+                </Label.GestureRecognizers>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span>
+                            حساب کاربری ندارید؟
+                        </Span>
+                        <Span TextColor="CadetBlue">
+                            ثبت نام کنید
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,14 +1,11 @@
-﻿using InfoManager.Server.Controllers.Requests;
-using InfoManager.Server.Controllers.Respone;
-using InfoManager.Server.Dtos;
+﻿using InfoManager.Server.Dtos;
 using InfoManager.Server.Models;
 using InfoManager.Server.Services;
 using InfoManager.Server.Ulitis;
+using InfoManager.Shared.Requests;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-using System.Net;
 
 namespace InfoManager.Server.Controllers;
 
@@ -62,10 +59,7 @@ public class SpaceController : ControllerBase
         Space? space = await unitOfWork.SpaceRepository.FindAsync(request.SpaceId);
         if (space is null)
         {
-            return new ObjectResult(AddMemberError.SpaceNotFound)
-            {
-                StatusCode = StatusCodes.Status404NotFound
-            };
+            return NotFound();
         }
         SpaceMember? member = await unitOfWork.SpaceMemberRepository.FindAsync(space, session.User);
         if(member is null)

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:InfoManager.Maui.Pages"
+             x:Class="InfoManager.Maui.Pages.MainPage"
+             Title="MainPage"
+             x:DataType="pages:MainPageModel"
+             FlowDirection="RightToLeft">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <HorizontalStackLayout>
+            <Label Text="{Binding Name,StringFormat='نام : {0}'}">
+            </Label>
+            <Label Text="{Binding Username,StringFormat='نام کاربری :{0}'}"/>
+            <Label Text="hi"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

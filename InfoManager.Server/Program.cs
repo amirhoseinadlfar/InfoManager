@@ -7,6 +7,8 @@ using InfoManager.Server.Services.Repositorys;
 using InfoManager.Server.Services.Repositorys.Interfaces;
 
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
@@ -25,7 +27,7 @@ builder.Services.AddSwaggerGen(options=>
 });
 
 builder.Services.AddAuthentication()
-    .AddCookie(x=>
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,x=>
     {
         x.EventsType = typeof(CustomCookieAuthenticationEvents);
     });
@@ -38,7 +40,8 @@ builder.Services.AddAuthorization(configure=>
 });
 
 
-if(builder.Environment.IsDevelopment())
+// TODO : Change it before push
+if(builder.Environment.IsDevelopment() || true)
 {
     bool useSqlServer = true;
     if (useSqlServer)

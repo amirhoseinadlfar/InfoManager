@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using InfoManager.Maui.Pages;
+using InfoManager.Maui.Services;
+
+using Microsoft.Extensions.Logging;
 
 namespace InfoManager.Maui
 {
@@ -14,6 +17,19 @@ namespace InfoManager.Maui
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.Services.AddTransient<LoginPageModel>();
+            
+            builder.Services.AddTransient<LoginPage>(serviceProvider =>
+                new LoginPage(serviceProvider.GetRequiredService<LoginPageModel>()));
+
+            builder.Services.AddTransient<RegisterPageModel>();
+            builder.Services.AddTransient<RegisterPage>(serviceProvider =>
+                new RegisterPage(serviceProvider.GetRequiredService<RegisterPageModel>()));
+
+            builder.Services.AddSingleton<InfoManagerServices>();
+
+
 
 #if DEBUG
 		builder.Logging.AddDebug();

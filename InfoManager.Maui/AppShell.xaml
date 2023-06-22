@@ -3,12 +3,17 @@
     x:Class="InfoManager.Maui.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:InfoManager.Maui"
+    xmlns:pages="clr-namespace:InfoManager.Maui.Pages"
     Shell.FlyoutBehavior="Disabled">
-
+    
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+        ContentTemplate="{DataTemplate pages:LoginPage}"
+        Route="Login"
+        />
+    <ShellContent
+        ContentTemplate="{DataTemplate pages:RegisterPage}"
+        Route="Register"/>
+    <ShellContent
+        ContentTemplate="{DataTemplate pages:MainPage}"
+        Route="Main"/>
 </Shell>
