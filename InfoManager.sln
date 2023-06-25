@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoManager.Server", "InfoM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoManager.Maui", "InfoManager.Maui\InfoManager.Maui.csproj", "{9EE3E101-D95C-4F37-95E5-EC80F74D9850}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfoManager.Shared", "InfoManager.Shared\InfoManager.Shared.csproj", "{B81868E2-0E5D-4D8E-9439-51E115823555}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "InfoManager.Shared", "InfoManager.Shared\InfoManager.Shared.shproj", "{808703AC-A423-4CDA-BCD0-B8E581DB1954}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,15 +25,16 @@ Global
 		{9EE3E101-D95C-4F37-95E5-EC80F74D9850}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EE3E101-D95C-4F37-95E5-EC80F74D9850}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9EE3E101-D95C-4F37-95E5-EC80F74D9850}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{B81868E2-0E5D-4D8E-9439-51E115823555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B81868E2-0E5D-4D8E-9439-51E115823555}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B81868E2-0E5D-4D8E-9439-51E115823555}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B81868E2-0E5D-4D8E-9439-51E115823555}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D8BF5171-7ADF-4A61-A359-115226EFF745}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		InfoManager.Shared\InfoManagerShared.projitems*{58e0ed65-f050-4bed-84c4-80308fd87c4e}*SharedItemsImports = 5
+		InfoManager.Shared\InfoManagerShared.projitems*{808703ac-a423-4cda-bcd0-b8e581db1954}*SharedItemsImports = 13
+		InfoManager.Shared\InfoManagerShared.projitems*{9ee3e101-d95c-4f37-95e5-ec80f74d9850}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

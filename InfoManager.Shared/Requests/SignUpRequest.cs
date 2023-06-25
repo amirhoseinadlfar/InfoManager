@@ -1,6 +1,6 @@
 ﻿namespace InfoManager.Shared.Requests
 {
-    public class RegisterRequest
+    public partial class SignUpRequest
     {
         public string Username { get; set; }
         public string Name { get; set; }

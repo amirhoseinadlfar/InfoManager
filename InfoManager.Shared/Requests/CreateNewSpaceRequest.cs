@@ -1,6 +1,6 @@
 ﻿namespace InfoManager.Shared.Requests;
 
-public class CreateNewSpaceRequest
+public partial class CreateNewSpaceRequest
 {
     public string Name { get; set; }
 }

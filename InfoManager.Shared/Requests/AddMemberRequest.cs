@@ -1,6 +1,6 @@
 ﻿namespace InfoManager.Shared.Requests;
 
-public class AddMemberRequest
+public partial class AddMemberRequest
 {
     public int SpaceId { get; set; }
 }

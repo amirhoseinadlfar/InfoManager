@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>808703ac-a423-4cda-bcd0-b8e581db1954</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>InfoManagerShared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Dtos\SpaceDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dtos\SpaceMemberDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\AddMemberRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\CreateNewSpaceRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\LoginRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\SignUpRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Respones\GetMeRespone.cs" />
+  </ItemGroup>
+</Project>
