@@ -11,10 +11,14 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Dtos\SpaceDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dtos\SpaceMemberDto.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Requests\AddMemberRequest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Requests\CreateNewSpaceRequest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Requests\LoginRequest.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Requests\SignUpRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\IDeleteMemberRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\IDeleteSpaceRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\IEditSpaceRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Respones\GetSpacesResponse.cs" />
+    <Compile Include="..\InfoManager.Shared\Requests\IAddSpaceMemberRequest.cs" />
+    <Compile Include="..\InfoManager.Shared\Requests\ICreateSpaceRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\ILoginRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\ISignUpRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Respones\GetMeRespone.cs" />
   </ItemGroup>
 </Project>

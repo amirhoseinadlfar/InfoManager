@@ -2,6 +2,8 @@
 {
     public class Session
     {
+        public const int KeyLength = 64;
+
         public int Id { get; set; }
         public string Key { get; set; }
 

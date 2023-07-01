@@ -2,6 +2,8 @@
 {
     public class Table
     {
+        public const int NameLength = 15;
+
         public int Id { get; set; }
         public string Name { get; set; }
         public int SpaceId { get; set; }

@@ -66,11 +66,11 @@ public class InfoManagerServices : IDisposable
         }
         return new NotFound();
     }
-    public async Task<OneOf<Success,Error>> RegisterAsync(RegisterRequest registerRequest,CancellationToken cancellationToken = default)
+    public async Task<OneOf<Success,Error>> SignUpAsync(SignUpRequest registerRequest,CancellationToken cancellationToken = default)
     {
         HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
         httpRequestMessage.Method = HttpMethod.Post;
-        httpRequestMessage.RequestUri = new Uri($"{serverUserApiUrl}/register");
+        httpRequestMessage.RequestUri = new Uri($"{serverUserApiUrl}/SignUp");
         httpRequestMessage.Content = GetFormContentFromObject(registerRequest);
         try
         {
@@ -79,9 +79,13 @@ public class InfoManagerServices : IDisposable
             {
                 return new Success();
             }
-            return default;
+            else if(result.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+
+            }
+            return new Error();
         }
-        catch (HttpRequestException ex)
+        catch (HttpRequestException)
         {
             return new Error();
         }

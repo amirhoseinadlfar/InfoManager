@@ -83,7 +83,17 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.UseMiddleware<SessionAuthMiddleware>();
+app.Use((context, next) =>
+{
+    Endpoint? endpoint = context.GetEndpoint();
+    if(endpoint is not null)
+    {
+        Console.WriteLine(endpoint.RequestDelegate.Target);
+    }
+    return next();
+});
 app.MapControllers();
 
 app.MapRazorPages();

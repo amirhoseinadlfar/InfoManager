@@ -19,13 +19,15 @@ namespace InfoManager.Server.Middlewares
                 var keyClaim = context.User.Claims.FirstOrDefault(x => x.Type == "loginKey");
                 if (keyClaim is null)
                 {
-                    return context.ForbidAsync();
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
                 }
                 ISessionRepository sessionRepository = context.RequestServices.GetRequiredService<ISessionRepository>();
                 Session? session = sessionRepository.FindAsync(keyClaim.Value).Result;
                 if (session is null)
                 {
-                    return context.ForbidAsync();
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
                 }
                 context.Items["Session"] = session;
             }

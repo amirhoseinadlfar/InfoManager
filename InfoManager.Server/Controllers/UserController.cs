@@ -1,4 +1,6 @@
-﻿using InfoManager.Server.Models;
+﻿using InfoManager.Server.Controllers.Requests;
+using InfoManager.Server.Dtos;
+using InfoManager.Server.Models;
 using InfoManager.Server.Services;
 using InfoManager.Server.Services.Repositorys.Interfaces;
 using InfoManager.Server.Ulitis;
@@ -37,20 +39,10 @@ public class UserController : ControllerBase
     /// <returns></returns>
     /// <response code="200">ثبت نام موفق</response>
     /// <response code="409">تکراری بودن نام کاربری</response>
-    /// <remarks>
-    /// sample request:
-    /// 
-    ///             POST /user/signup
-    ///             {
-    ///                 "username":"test",
-    ///                 "password":"test",
-    ///                 "name":"test"
-    ///             }
-    /// </remarks>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult> SignUp([FromForm] RegisterRequest request)
+    public async Task<ActionResult> SignUp([FromForm] SignUpRequest request)
     {
         if(await unitOfWork.UserRepository.AnyAsync(request.Username))
         {
@@ -67,17 +59,22 @@ public class UserController : ControllerBase
         await unitOfWork.SaveChangesAsync();
         return Ok();
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// 
+    /// <response code="401">ورود ناموفق</response>
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult> Login([FromForm] LoginRequest request)
     {
         User? currentUser = await unitOfWork.UserRepository.FindAsync(request.Username, request.Password);
         if (currentUser is null)
         {
-            return NotFound();
+            return Unauthorized();
         }
-        byte[] key = RandomNumberGenerator.GetBytes(64);
+        byte[] key = RandomNumberGenerator.GetBytes(Session.KeyLength);
         string stringKey = string.Create(key.Length, key, (chars, y) =>
         {
             for (int i = 0; i < chars.Length; i++)
@@ -104,8 +101,13 @@ public class UserController : ControllerBase
         };
         return base.SignIn(principal,properties);
     }
+    /// <summary>
+    /// گرفتن نام و نام کاربری (احراز درستی ورود موفق )
+    /// </summary>
+    /// <response code="403">کاربر وارد نشده یا اینکه دیگر قابل قبول نیست</response>
     [HttpGet]
     [Authorize("User")]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<GetMeRespone>> GetMe()
     {
         Session session = HttpContext.GetSession();
@@ -116,5 +118,18 @@ public class UserController : ControllerBase
             Name = session.User.Name,
             Username = session.User.UserName
         };
+    }
+    [HttpGet]
+    [Authorize("User")]
+    public async Task<SpaceDto[]> GetSpaces()
+    {
+        var session = HttpContext.GetSession();
+        await unitOfWork.SessionRepository.LoadUserAsync(session);
+        Space[] spaces = await unitOfWork.SpaceRepository.GetSpaces(session.User);
+        return spaces.Select(x=>new SpaceDto()
+        {
+            Id = x.Id,
+            Name = x.Name
+        }).ToArray();
     }
 }

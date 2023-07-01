@@ -40,15 +40,15 @@ namespace InfoManager.Server.DbContexts
                 .ValueGeneratedOnAdd();
 
             userTypeBuilder.Property(x => x.Name)
-                .HasMaxLength(30)
+                .HasMaxLength(User.NameMaxLength)
                 .IsRequired();
 
             userTypeBuilder.Property(x => x.UserName)
-                .HasMaxLength(30)
+                .HasMaxLength(User.UsernameMaxLength)
                 .IsRequired();
 
             userTypeBuilder.Property(x=>x.Password)
-                .HasMaxLength(30)
+                .HasMaxLength(User.PasswordMaxLength)
                 .IsRequired();
             #endregion
             #region Session Configure
@@ -56,7 +56,7 @@ namespace InfoManager.Server.DbContexts
             sessionTypeBuilder.Property(x => x.Id)
                 .ValueGeneratedOnAdd();
             sessionTypeBuilder.Property(x => x.Key)
-                .HasMaxLength(64)
+                .HasMaxLength(Session.KeyLength)
                 .IsRequired();
             #endregion
             #region Space Configure
@@ -64,7 +64,7 @@ namespace InfoManager.Server.DbContexts
             spaceTypeBuilder.Property(x=>x.Id)
                 .ValueGeneratedOnAdd();
             spaceTypeBuilder.Property(x=>x.Name)
-                .HasMaxLength(15)
+                .HasMaxLength(Space.NameMaxLength)
                 .IsRequired();
             #endregion
             #region SpaceMember Configure
@@ -78,7 +78,7 @@ namespace InfoManager.Server.DbContexts
                 .ValueGeneratedOnAdd();
 
             tableTypeBuilder.Property(x => x.Name)
-                .HasMaxLength(15)
+                .HasMaxLength(Table.NameLength)
                 .IsRequired();
             #endregion
             #region TableRow Configure

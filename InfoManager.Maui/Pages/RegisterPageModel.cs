@@ -30,13 +30,18 @@ namespace InfoManager.Maui.Pages
             {
                 try
                 {
-                    RegisterRequest request = new RegisterRequest()
+                    SignUpRequest request = new SignUpRequest()
                     {
                         Name = Name,
                         Username = Username,
                         Password = Password,
                     };
-                    var result = await infoManagerServices.RegisterAsync(request);
+                    var result = await infoManagerServices.SignUpAsync(request);
+                    if(result.IsT0)
+                    {
+                        await Shell.Current.DisplayAlert("موفقیت","ثبت نام با موفقیت انجام شد. ","ورود به حساب کاربری");
+                        Shell.Current.GoToAsync(new ShellNavigationState("///Login"));
+                    }
                 }
                 catch (Exception ex)
                 {

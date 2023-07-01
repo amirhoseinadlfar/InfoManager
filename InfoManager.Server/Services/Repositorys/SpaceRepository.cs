@@ -19,9 +19,21 @@ namespace InfoManager.Server.Services.Repositorys
             await dbContext.Spaces.AddAsync(space);
         }
 
+        public Task DeleteAsync(Space space)
+        {
+            dbContext.Spaces.Remove(space);
+            return Task.CompletedTask;
+        }
+
         public Task<Space?> FindAsync(int id)
         {
             return dbContext.Spaces.FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<Space[]> GetSpaces(User user)
+        {
+            return await dbContext.Spaces.Where(x => x.Members.Any(y => y.UserId == user.Id))
+                .ToArrayAsync();
         }
     }
 }

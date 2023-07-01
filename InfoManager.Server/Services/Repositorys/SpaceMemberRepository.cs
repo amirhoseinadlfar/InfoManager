@@ -4,6 +4,8 @@ using InfoManager.Server.Services.Repositorys.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
+using System.Text.Json;
+
 namespace InfoManager.Server.Services.Repositorys
 {
     public class SpaceMemberRepository : ISpaceMemberRepository
@@ -19,9 +21,16 @@ namespace InfoManager.Server.Services.Repositorys
             await dbContext.SpaceMembers.AddAsync(spaceMember);
         }
 
+        public Task DeleteAsync(SpaceMember spaceMember)
+        {
+            dbContext.SpaceMembers.Remove(spaceMember);
+            return Task.CompletedTask;
+        }
+
         public Task<SpaceMember?> FindAsync(Space space, User user)
         {
-            return dbContext.SpaceMembers.FirstOrDefaultAsync(x => x.SpaceId == space.Id && x.UserId == user.Id);
+            return dbContext.SpaceMembers.Where(x => x.SpaceId == space.Id && x.UserId == user.Id)
+                .FirstOrDefaultAsync();
         }
     }
 }
