@@ -7,6 +7,6 @@ namespace InfoManager.Server.Services.Repositorys.Interfaces
         Task AddAsync(Space space);
         Task DeleteAsync(Space space);
         Task<Space?> FindAsync(int id);
-        Task<Space[]> GetSpaces(User user);
+        Task LoadTables(Space item2);
     }
 }

@@ -78,7 +78,7 @@ namespace InfoManager.Server.DbContexts
                 .ValueGeneratedOnAdd();
 
             tableTypeBuilder.Property(x => x.Name)
-                .HasMaxLength(Table.NameLength)
+                .HasMaxLength(Table.NameMaxLength)
                 .IsRequired();
             #endregion
             #region TableRow Configure
@@ -107,17 +107,24 @@ namespace InfoManager.Server.DbContexts
             #endregion
 
             #region rel
+            userTypeBuilder.HasMany(x => x.Spaces)
+                .WithMany(x => x.Users)
+                .UsingEntity<SpaceMember>(memerShip =>
+                {
+                    memerShip.HasOne(x => x.User)
+                    .WithMany(x => x.MemberShips)
+                    .HasForeignKey(x=>x.UserId);
+
+                    memerShip.HasOne(x => x.Space)
+                    .WithMany(x => x.Members)
+                    .HasForeignKey(x => x.SpaceId);
+                });
+
             userTypeBuilder.HasMany(x => x.Sessions)
                 .WithOne(x => x.User)
                 .HasForeignKey(x=>x.UserId);
 
-            userTypeBuilder.HasMany(x=>x.MemberShips)
-                .WithOne(x=>x.User)
-                .HasForeignKey(x=>x.UserId);
 
-            spaceTypeBuilder.HasMany(x=>x.Members)
-                .WithOne(x=>x.Space)
-                .HasForeignKey(x=>x.SpaceId);
 
             spaceTypeBuilder.HasMany(x => x.Tables)
                 .WithOne(x => x.Space)

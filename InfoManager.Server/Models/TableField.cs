@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public FieldType FieldType { get; set; }
+        public int Limit { get; set; }
 
         public int TableId { get; set; }
         public Table Table { get; set; }
@@ -13,19 +14,22 @@
     }
     public enum FieldType : byte
     {
-        Byte = 0,
-        SByte = 1,
-        UInt16 = 2,
-        Int16 = 3,
-        UInt32 = 4,
-        Int32 = 5,
-        UInt64 = 6,
-        Int64 = 7,
-        Float = 8,
-        Double = 9,
-        Decimal = 10,
+        ShortString,
+        LongString,
+        Enum,
 
-        Char = 11,
-        String = 12,
+        Bool,
+        Byte,
+        Short,
+        Int,
+        Long,
+        Float,
+        Double,
+        Decimal,
+
+        Date,
+        Time,
+        DateTime,
+
     }
 }

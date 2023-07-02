@@ -11,10 +11,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 using System.Net;
 using System.Reflection;
+// TODO s:
+//  Use cancell token for Get requests
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +44,7 @@ builder.Services.AddAuthorization(configure=>
 });
 
 
-// TODO : Change it before push
+// TODO : Change it before publish
 if(builder.Environment.IsDevelopment() || true)
 {
     bool useSqlServer = true;
@@ -62,6 +66,7 @@ builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<ISessionRepository,SessionRepository>();
 builder.Services.AddScoped<ISpaceRepository,SpaceRepository>();
 builder.Services.AddScoped<ISpaceMemberRepository,SpaceMemberRepository>();
+builder.Services.AddScoped<ITableRepository, TableRepository>();
 builder.Services.AddScoped<MainDbUnitOfWork>();
 builder.Services.AddSingleton<SessionAuthMiddleware>();
 var app = builder.Build();
@@ -85,19 +90,14 @@ app.UseAuthorization();
 
 
 app.UseMiddleware<SessionAuthMiddleware>();
-app.Use((context, next) =>
-{
-    Endpoint? endpoint = context.GetEndpoint();
-    if(endpoint is not null)
-    {
-        Console.WriteLine(endpoint.RequestDelegate.Target);
-    }
-    return next();
-});
 app.MapControllers();
 
 app.MapRazorPages();
 app.MapFallbackToFile("index.html");
 
-app.Services.CreateScope().ServiceProvider.GetService<MainDbContext>()!.Database.EnsureCreated();
+var db = app.Services.CreateScope().ServiceProvider.GetService<MainDbContext>()!.Database;
+db.EnsureCreated();
+#if DEBUG
+db.Migrate();
+#endif
 app.Run();

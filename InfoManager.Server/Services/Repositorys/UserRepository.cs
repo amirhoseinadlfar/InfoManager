@@ -34,5 +34,12 @@ namespace InfoManager.Server.Services.Repositorys
         {
             return await dbContext.Users.FirstOrDefaultAsync(x=>x.UserName == username && x.Password == password);
         }
+
+        public async Task LoadSpaces(User user)
+        {
+            await dbContext.Entry(user)
+                .Collection(x => x.Spaces)
+                .LoadAsync();
+        }
     }
 }

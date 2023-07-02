@@ -7,6 +7,7 @@
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public IList<User> Users { get; set; }
         public IList<SpaceMember> Members { get; set; }
         public IList<Table> Tables { get; set; }
     }

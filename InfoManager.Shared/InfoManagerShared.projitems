@@ -11,9 +11,12 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Dtos\SpaceDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dtos\SpaceMemberDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dtos\TableDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\ICreateTableRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Requests\IDeleteMemberRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Requests\IDeleteSpaceRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Requests\IEditSpaceRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Requests\IGetSpaceTablesRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Respones\GetSpacesResponse.cs" />
     <Compile Include="..\InfoManager.Shared\Requests\IAddSpaceMemberRequest.cs" />
     <Compile Include="..\InfoManager.Shared\Requests\ICreateSpaceRequest.cs" />

@@ -125,8 +125,8 @@ public class UserController : ControllerBase
     {
         var session = HttpContext.GetSession();
         await unitOfWork.SessionRepository.LoadUserAsync(session);
-        Space[] spaces = await unitOfWork.SpaceRepository.GetSpaces(session.User);
-        return spaces.Select(x=>new SpaceDto()
+        await unitOfWork.UserRepository.LoadSpaces(session.User);
+        return  session.User.Spaces.Select(x=>new SpaceDto()
         {
             Id = x.Id,
             Name = x.Name

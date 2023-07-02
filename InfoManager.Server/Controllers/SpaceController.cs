@@ -8,6 +8,8 @@ using InfoManager.Server.Services.Repositorys;
 using InfoManager.Server.Ulitis;
 using InfoManager.Shared.Requests;
 
+using InfoManagerShared.Dtos;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -81,7 +83,7 @@ public class SpaceController : ControllerBase
     {
         Session session = HttpContext.GetSession();
         await unitOfWork.SessionRepository.LoadUserAsync(session);
-        var result = await GetMember(session.User, request.SpaceId);
+        var result = await unitOfWork.GetMember(session.User, request.SpaceId);
         if(result.IsT0 == false)
         {
             return NotFound();
@@ -103,7 +105,7 @@ public class SpaceController : ControllerBase
         var sesssion = HttpContext.GetSession();
         await unitOfWork.SessionRepository.LoadUserAsync(sesssion);
 
-        var result = await GetMember(sesssion.User, request.SpaceId);
+        var result = await unitOfWork.GetMember(sesssion.User, request.SpaceId);
         if(result.IsT0 == false)
         {
             return NotFound();
@@ -113,22 +115,6 @@ public class SpaceController : ControllerBase
         await unitOfWork.SaveChangesAsync();
 
         return Ok();
-    }
-    struct SpaceNotFound { }
-    struct MemberNotFound { }
-    async Task<OneOf<(SpaceMember,Space), SpaceNotFound, MemberNotFound>> GetMember(User user, int spaceId)
-    {
-        var space = await unitOfWork.SpaceRepository.FindAsync(spaceId);
-        if (space is null)
-        {
-            return new SpaceNotFound();
-        }
-        SpaceMember? member = await unitOfWork.SpaceMemberRepository.FindAsync(space, user);
-        if (member is null)
-        {
-            return new MemberNotFound();
-        }
-        return (member,space);
     }
     /// <summary>
     /// 
@@ -171,7 +157,7 @@ public class SpaceController : ControllerBase
     {
         Session session = HttpContext.GetSession();
         await unitOfWork.SessionRepository.LoadUserAsync(session);
-        var mem = await GetMember(session.User,0);
+        var mem = await unitOfWork.GetMember(session.User,0);
         if(mem.IsT0 == false)
         {
             return NotFound();
@@ -191,5 +177,23 @@ public class SpaceController : ControllerBase
         await unitOfWork.SaveChangesAsync();
 
         return Ok();
+    }
+    [HttpGet]
+    public async Task<ActionResult<TableDto[]>> GetTables([FromForm] GetSpaceTablesRequest request)
+    {
+        Session session = HttpContext.GetSession();
+        await unitOfWork.SessionRepository.LoadUserAsync(session);
+        var result = await unitOfWork.GetMember(session.User, request.SpaceId);
+        if (result.IsT0 == false)
+            return NotFound();
+        await unitOfWork.SpaceRepository.LoadTables(result.AsT0.Item2);
+        return result.AsT0.Item2.Tables.Select(x =>
+        new TableDto
+        {
+            Id = x.Id,
+            Name = x.Name,
+            SpaceId = x.SpaceId
+        }
+        ).ToArray();
     }
 }

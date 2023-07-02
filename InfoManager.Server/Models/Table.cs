@@ -2,7 +2,8 @@
 {
     public class Table
     {
-        public const int NameLength = 15;
+        public const int NameMinLength = 1;
+        public const int NameMaxLength = 15;
 
         public int Id { get; set; }
         public string Name { get; set; }

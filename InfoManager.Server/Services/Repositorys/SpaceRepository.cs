@@ -35,5 +35,12 @@ namespace InfoManager.Server.Services.Repositorys
             return await dbContext.Spaces.Where(x => x.Members.Any(y => y.UserId == user.Id))
                 .ToArrayAsync();
         }
+
+        public Task LoadTables(Space space)
+        {
+            return dbContext.Entry(space)
+                .Reference(s => s.Tables)
+                .LoadAsync();
+        }
     }
 }
